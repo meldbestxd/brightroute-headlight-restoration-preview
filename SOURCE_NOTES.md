@@ -15,11 +15,10 @@
 ## Privacy / professionalism edits
 - Visible license plates were avoided or blurred in public assets.
 - Only the strongest transformation/proof visuals were used.
-- The site uses placeholders for phone, city/county, pricing, reviews, social links, and map until Juan confirms exact business details.
+- Contact email and shared Google Voice number are confirmed. The site still uses unconfirmed placeholders/assumptions for some service-area details, pricing, reviews, social links, and map.
 
 ## Business details needing confirmation before launch
-- Real phone number for call/text buttons.
-- Email or form destination.
+- Contact confirmed: brightroutemyj@gmail.com and shared Google Voice number (708) 942-4258.
 - City, county, and exact service area.
 - Final pricing/packages.
 - Google Business Profile / Facebook / Instagram links.
