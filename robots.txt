@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://meldbestxd.github.io/brightroute-headlight-restoration-preview/sitemap.xml
