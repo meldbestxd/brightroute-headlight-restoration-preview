@@ -25,6 +25,6 @@ if (form) {
       '',
       'Please attach/send headlight photos for the most accurate quote.'
     ].join('\n');
-    window.location.href = `mailto:quotes@brightroute.example?subject=${encodeURIComponent('BrightRoute Headlight Restoration Quote')}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:quotes@brightrouteauto.com?subject=${encodeURIComponent('BrightRoute Headlight Restoration Quote')}&body=${encodeURIComponent(body)}`;
   });
 }
