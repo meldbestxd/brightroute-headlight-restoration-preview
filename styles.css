@@ -61,8 +61,10 @@
 .before-after-static .ba-before figcaption{left:1rem}
 .before-after-static .ba-after figcaption{right:1rem}
 @media (max-width:640px){
-  .before-after-static{grid-template-columns:1fr;min-height:auto}
-  .before-after-static::after{display:none}
-  .before-after-static .ba-panel{height:220px}
-  .before-after-static .ba-before{border-bottom:4px solid #fff}
+  .before-after-static{grid-template-columns:1fr 1fr;min-height:260px}
+  .before-after-static::after{display:block}
+  .before-after-static .ba-panel{height:260px}
+  .before-after-static .ba-panel figcaption{top:.65rem;font-size:.68rem}
+  .before-after-static .ba-before figcaption{left:.65rem}
+  .before-after-static .ba-after figcaption{right:.65rem}
 }
