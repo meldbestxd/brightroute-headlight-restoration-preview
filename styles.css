@@ -11,3 +11,58 @@
 .area-list li{text-transform:none}
 .faq-list details{scroll-margin-top:90px}
 @media(max-width:760px){.trust-grid{grid-template-columns:1fr}.hero-actions .btn{width:100%}.contact-actions .btn{width:100%}}
+
+
+/* Static before/after comparison: before left, after right. No click/drag resizing. */
+.before-after-static{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  min-height:340px;
+  cursor:default;
+}
+.before-after-static::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:50%;
+  width:4px;
+  transform:translateX(-50%);
+  background:#fff;
+  z-index:2;
+  box-shadow:0 0 0 1px rgba(4,21,43,.12);
+}
+.before-after-static .ba-panel{
+  position:relative;
+  min-width:0;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  background:#000;
+}
+.before-after-static .ba-panel img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.before-after-static .ba-panel figcaption{
+  position:absolute;
+  top:1rem;
+  border-radius:999px;
+  padding:.4rem .7rem;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  font-weight:900;
+  font-size:.75rem;
+  z-index:3;
+}
+.before-after-static .ba-before figcaption{left:1rem}
+.before-after-static .ba-after figcaption{right:1rem}
+@media (max-width:640px){
+  .before-after-static{grid-template-columns:1fr;min-height:auto}
+  .before-after-static::after{display:none}
+  .before-after-static .ba-panel{height:220px}
+  .before-after-static .ba-before{border-bottom:4px solid #fff}
+}
