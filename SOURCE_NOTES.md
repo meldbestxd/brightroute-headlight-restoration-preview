@@ -24,3 +24,8 @@
 - Google Business Profile / Facebook / Instagram links.
 - Real reviews/testimonials.
 - Whether mobile service is by appointment only and typical turnaround time.
+
+## Lightweight QR tracking setup
+- Added a dedicated business-card QR path at `/card/` that immediately redirects to `https://brightrouteauto.com/?utm_source=business-card&utm_medium=qr&utm_campaign=card`.
+- Purpose: keep the setup lightweight while making QR visits distinguishable from normal homepage visits by both request path (`/card`) and UTM parameters on the homepage URL.
+- The redirect page is marked `noindex,nofollow` so search engines are discouraged from treating it like a normal landing page.
