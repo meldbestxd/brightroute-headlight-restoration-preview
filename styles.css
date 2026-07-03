@@ -30,3 +30,121 @@
 @media (max-width:640px){
   .hero-proof-card{border-radius:22px}
 }
+
+/* Hero comparison slider refresh */
+.hero-visual{
+  width:100%;
+  max-width:720px;
+  justify-self:end;
+}
+.hero-slider-shell{
+  padding:clamp(.7rem,1.3vw,1rem);
+}
+.hero-comparison{
+  --split:58%;
+  min-height:auto;
+  aspect-ratio:5/4;
+  border-radius:20px;
+  background:#020814;
+}
+.hero-comparison .ba-layer,
+.hero-comparison .ba-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.hero-comparison .ba-image{
+  object-fit:cover;
+}
+.hero-comparison .ba-layer-after{
+  clip-path:inset(0 calc(100% - var(--split)) 0 0);
+}
+.hero-comparison .ba-divider{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:var(--split);
+  width:0;
+  transform:translateX(-1px);
+  pointer-events:none;
+  z-index:3;
+}
+.hero-comparison .ba-divider::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  width:2px;
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.68));
+  box-shadow:0 0 0 1px rgba(4,21,43,.15),0 0 28px rgba(255,255,255,.28);
+}
+.hero-comparison .ba-handle{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  display:grid;
+  place-items:center;
+  width:56px;
+  height:56px;
+  border-radius:999px;
+  background:rgba(4,21,43,.92);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:0 16px 34px rgba(2,12,27,.28);
+  font-size:1.35rem;
+  line-height:1;
+}
+.hero-label{
+  position:absolute;
+  top:1rem;
+  z-index:2;
+  border-radius:999px;
+  padding:.45rem .8rem;
+  background:rgba(2,8,20,.75);
+  color:#fff;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.hero-label-left{left:1rem}
+.hero-label-right{right:1rem}
+.hero-comparison input[type="range"]{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  cursor:ew-resize;
+  z-index:4;
+}
+.visual-note{
+  margin:.9rem auto 0;
+  max-width:40rem;
+}
+@media (max-width:1100px){
+  .hero{
+    min-height:auto;
+    grid-template-columns:1fr;
+  }
+  .hero-visual{
+    max-width:680px;
+    justify-self:stretch;
+  }
+}
+@media (max-width:640px){
+  .hero-comparison{
+    aspect-ratio:1/1;
+  }
+  .hero-comparison .ba-handle{
+    width:50px;
+    height:50px;
+    font-size:1.15rem;
+  }
+  .hero-label{
+    top:.8rem;
+    padding:.38rem .65rem;
+    font-size:.66rem;
+  }
+}
