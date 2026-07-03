@@ -1,13 +1,12 @@
 document.querySelectorAll('[data-slider]').forEach((slider) => {
   const range = slider.querySelector('input[type="range"]');
-  const after = slider.querySelector('.after-wrap');
   const divider = slider.querySelector('.ba-divider');
 
-  if (!range || !after || !divider) return;
+  if (!range || !divider) return;
 
   const update = () => {
     const value = `${range.value}%`;
-    after.style.width = value;
+    slider.style.setProperty('--split', value);
     divider.style.left = value;
   };
 
