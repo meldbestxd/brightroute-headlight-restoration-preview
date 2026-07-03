@@ -13,15 +13,61 @@
 @media(max-width:760px){.trust-grid{grid-template-columns:1fr}.hero-actions .btn{width:100%}.contact-actions .btn{width:100%}}
 
 
-/* Static before/after comparison: before left, after right. No click/drag resizing. */
-.before-after-static{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0;
+/* Interactive before/after hero comparison slider. */
+.before-after-slider{
+  position:relative;
   min-height:340px;
-  cursor:default;
+  overflow:hidden;
+  background:#000;
+  border-radius:26px;
+  isolation:isolate;
+  touch-action:none;
 }
-.before-after-static::after{
+.before-after-slider .ba-image,
+.before-after-slider .after-wrap{
+  position:absolute;
+  inset:0;
+}
+.before-after-slider .ba-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.before-after-slider .after-wrap{
+  width:50%;
+  overflow:hidden;
+  z-index:1;
+}
+.before-after-slider .after-wrap .ba-image-after{
+  width:100%;
+  min-width:100%;
+}
+.before-after-slider .ba-label{
+  position:absolute;
+  top:1rem;
+  border-radius:999px;
+  padding:.42rem .74rem;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  font-weight:900;
+  font-size:.75rem;
+  z-index:4;
+  pointer-events:none;
+}
+.before-after-slider .ba-label-before{left:1rem}
+.before-after-slider .ba-label-after{right:1rem}
+.before-after-slider .ba-divider{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:50%;
+  width:0;
+  transform:translateX(-50%);
+  z-index:3;
+  pointer-events:none;
+}
+.before-after-slider .ba-divider::before{
   content:"";
   position:absolute;
   top:0;
@@ -29,42 +75,57 @@
   left:50%;
   width:4px;
   transform:translateX(-50%);
-  background:#fff;
-  z-index:2;
+  background:rgba(255,255,255,.95);
   box-shadow:0 0 0 1px rgba(4,21,43,.12);
 }
-.before-after-static .ba-panel{
-  position:relative;
-  min-width:0;
-  height:100%;
-  margin:0;
-  overflow:hidden;
-  background:#000;
+.before-after-slider .ba-handle{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:58px;
+  height:58px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid rgba(4,21,43,.14);
+  box-shadow:0 12px 30px rgba(4,21,43,.22);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
 }
-.before-after-static .ba-panel img{
+.before-after-slider .ba-handle-bar{
+  width:2px;
+  height:24px;
+  background:rgba(4,21,43,.22);
+  border-radius:999px;
+}
+.before-after-slider .ba-arrow{
+  width:0;
+  height:0;
+  border-top:7px solid transparent;
+  border-bottom:7px solid transparent;
+}
+.before-after-slider .ba-arrow-left{border-right:9px solid var(--navy)}
+.before-after-slider .ba-arrow-right{border-left:9px solid var(--navy)}
+.before-after-slider input[type="range"]{
+  position:absolute;
+  inset:0;
+  margin:0;
   width:100%;
   height:100%;
-  object-fit:cover;
-  display:block;
+  opacity:0;
+  cursor:ew-resize;
+  z-index:5;
 }
-.before-after-static .ba-panel figcaption{
-  position:absolute;
-  top:1rem;
-  border-radius:999px;
-  padding:.4rem .7rem;
-  background:rgba(0,0,0,.72);
-  color:#fff;
-  font-weight:900;
-  font-size:.75rem;
-  z-index:3;
-}
-.before-after-static .ba-before figcaption{left:1rem}
-.before-after-static .ba-after figcaption{right:1rem}
 @media (max-width:640px){
-  .before-after-static{grid-template-columns:1fr 1fr;min-height:260px}
-  .before-after-static::after{display:block}
-  .before-after-static .ba-panel{height:260px}
-  .before-after-static .ba-panel figcaption{top:.65rem;font-size:.68rem}
-  .before-after-static .ba-before figcaption{left:.65rem}
-  .before-after-static .ba-after figcaption{right:.65rem}
+  .before-after-slider{min-height:260px}
+  .before-after-slider .ba-label{top:.65rem;font-size:.68rem}
+  .before-after-slider .ba-label-before{left:.65rem}
+  .before-after-slider .ba-label-after{right:.65rem}
+  .before-after-slider .ba-handle{width:52px;height:52px}
+  .before-after-slider .ba-handle-bar{height:20px}
+  .before-after-slider .ba-arrow{border-top-width:6px;border-bottom-width:6px}
+  .before-after-slider .ba-arrow-left{border-right-width:8px}
+  .before-after-slider .ba-arrow-right{border-left-width:8px}
 }

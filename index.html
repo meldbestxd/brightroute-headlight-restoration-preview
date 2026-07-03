@@ -97,15 +97,21 @@
         </ul>
       </div>
       <div class="hero-visual" aria-label="Before and after headlight restoration comparison">
-        <div class="comparison before-after-static">
-          <figure class="ba-panel ba-before">
-            <img src="assets/gallery-before-foggy-nissan.webp" alt="Before: foggy oxidized headlight" />
-            <figcaption>Before</figcaption>
-          </figure>
-          <figure class="ba-panel ba-after">
-            <img src="assets/gallery-after-clear-nissan.webp" alt="After: restored clear headlight" />
-            <figcaption>After</figcaption>
-          </figure>
+        <div class="comparison before-after-slider" data-slider>
+          <img class="ba-image ba-image-before" src="assets/gallery-before-foggy-nissan.webp" alt="Before: foggy oxidized headlight" />
+          <div class="after-wrap">
+            <img class="ba-image ba-image-after" src="assets/gallery-after-clear-nissan.webp" alt="After: restored clear headlight" />
+          </div>
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+          <div class="ba-divider" aria-hidden="true">
+            <span class="ba-handle">
+              <span class="ba-arrow ba-arrow-left"></span>
+              <span class="ba-handle-bar"></span>
+              <span class="ba-arrow ba-arrow-right"></span>
+            </span>
+          </div>
+          <input type="range" min="0" max="100" value="50" aria-label="Compare before and after headlight restoration" />
         </div>
         <p class="visual-note">Real work photo selected as the strongest transformation from the asset set.</p>
       </div>
