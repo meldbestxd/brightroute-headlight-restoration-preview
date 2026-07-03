@@ -1,7 +1,16 @@
 document.querySelectorAll('[data-slider]').forEach((slider) => {
   const range = slider.querySelector('input[type="range"]');
   const after = slider.querySelector('.after-wrap');
-  const update = () => { after.style.width = `${range.value}%`; };
+  const divider = slider.querySelector('.ba-divider');
+
+  if (!range || !after || !divider) return;
+
+  const update = () => {
+    const value = `${range.value}%`;
+    after.style.width = value;
+    divider.style.left = value;
+  };
+
   range.addEventListener('input', update, { passive: true });
   update();
 });
