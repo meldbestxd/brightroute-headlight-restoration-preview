@@ -19,8 +19,8 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicons/icon-48-centered.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/icon-180.png" />
   <link rel="manifest" href="/assets/favicons/site.webmanifest" />
-  <link rel="preload" as="image" href="assets/hero-before-after.webp?v=20260706-hero-clarity" />
-  <link rel="preload" as="image" href="assets/gallery-after-clear-nissan.webp?v=20260706-framing-match" />
+  <link rel="preload" as="image" href="assets/hero-slider-before.webp?v=20260707-slider-framing" />
+  <link rel="preload" as="image" href="assets/hero-slider-after.webp?v=20260707-slider-framing" />
   <link rel="stylesheet" href="styles.css?v=1.3" />
   <script type="application/ld+json">
   {
@@ -99,9 +99,20 @@
       </div>
       <div class="hero-visual" aria-label="Before and after headlight restoration comparison">
         <figure class="hero-proof-card hero-slider-shell">
-          <img class="hero-proof-image" src="assets/hero-before-after.webp?v=20260706-hero-clarity" alt="Before and after comparison showing a cloudy oxidized headlight restored to a clear finish" />
+          <div class="comparison hero-comparison before-after-slider" data-slider style="--split:58%;">
+            <div class="ba-layer ba-layer-before">
+              <img class="ba-image ba-image-before" src="assets/hero-slider-after.webp?v=20260707-slider-framing" alt="After: clear headlight after restoration" />
+            </div>
+            <div class="ba-layer ba-layer-after">
+              <img class="ba-image ba-image-after" src="assets/hero-slider-before.webp?v=20260707-slider-framing" alt="Before: cloudy oxidized headlight" />
+            </div>
+            <span class="hero-label hero-label-left">Before</span>
+            <span class="hero-label hero-label-right">After</span>
+            <div class="ba-divider" aria-hidden="true"><span class="ba-handle">↔</span></div>
+            <input type="range" min="0" max="100" value="58" aria-label="Compare before and after headlight restoration" />
+          </div>
         </figure>
-        <p class="visual-note">Real BrightRoute result: cloudy before on the left, clear restored finish on the right.</p>
+        <p class="visual-note">Slide to reveal a real BrightRoute before/after result — cloudy lens to clear finish.</p>
       </div>
     </section>
 
