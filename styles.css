@@ -57,6 +57,10 @@
 .hero-comparison .ba-image{
   object-fit:cover;
 }
+.hero-comparison .ba-image-before{
+  transform:rotate(1.6deg) scale(1.045) translate(1.2%,-1.2%);
+  transform-origin:56% 48%;
+}
 .hero-comparison .ba-layer-after{
   clip-path:inset(0 calc(100% - var(--split)) 0 0);
 }
