@@ -299,7 +299,7 @@
     <section class="section contact" id="contact">
       <div class="contact-card" id="quote">
         <div><p class="section-kicker">Get a fast quote</p><h2>Send the details needed for an honest estimate.</h2><p>For the fastest estimate, include both headlight photos, vehicle year/make/model, city or cross streets, and whether you want standard restoration or UV protection.</p><div class="contact-actions"><a class="btn btn-primary" href="sms:7089424258">Text Photos / Questions</a><a class="btn btn-secondary" href="tel:7089424258">Call (708) 942-4258</a><a class="btn btn-ghost" href="mailto:brightroutemyj@gmail.com?subject=BrightRoute%20Headlight%20Restoration%20Quote">Email Quote Details</a></div><p class="direct-contact">Prefer email? <a href="mailto:brightroutemyj@gmail.com">brightroutemyj@gmail.com</a></p></div>
-        <form class="quote-form" id="quote-form" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+        <form class="quote-form" id="quote-form" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="8d952162-6471-4282-8daf-a3a085c10ad3" />
           <input type="hidden" name="subject" value="BrightRoute Headlight Restoration Quote Request" />
           <input type="hidden" name="from_name" value="BrightRouteAuto.com" />
@@ -317,12 +317,12 @@
               <option>Not sure yet</option>
             </select>
           </label>
-          <label>Headlight photos
-            <input type="file" name="attachments" accept="image/*" multiple />
+          <label>Best time to reach you
+            <input name="availability" placeholder="Example: Weekdays after 5 PM" />
           </label>
           <label>Message<textarea name="message" rows="4" placeholder="Tell BrightRoute what the headlights look like, where you're located, and any timing questions."></textarea></label>
           <button class="btn btn-primary" type="submit">Send Quote Request</button>
-          <p class="form-note">Upload clear photos of both headlights for the best estimate. If the upload gives you trouble, text the photos instead.</p>
+          <p class="form-note">After you send this form, text clear photos of both headlights to <a href="sms:7089424258">(708) 942-4258</a> for the fastest estimate.</p>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>

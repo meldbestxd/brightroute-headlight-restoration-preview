@@ -54,7 +54,7 @@ if (form) {
       if (response.ok && result.success) {
         form.reset();
         if (status) {
-          status.textContent = 'Quote request sent. BrightRoute can now review your details and attached photos.';
+          status.textContent = 'Quote request sent. Next, text clear photos of both headlights to (708) 942-4258 so BrightRoute can finish the estimate.';
           status.dataset.state = 'success';
         }
         return;
