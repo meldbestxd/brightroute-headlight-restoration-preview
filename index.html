@@ -298,31 +298,19 @@
 
     <section class="section contact" id="contact">
       <div class="contact-card" id="quote">
-        <div><p class="section-kicker">Get a fast quote</p><h2>Send the details needed for an honest estimate.</h2><p>For the fastest estimate, include both headlight photos, vehicle year/make/model, city or cross streets, and whether you want standard restoration or UV protection.</p><div class="contact-actions"><a class="btn btn-primary" href="sms:7089424258">Text Photos / Questions</a><a class="btn btn-secondary" href="tel:7089424258">Call (708) 942-4258</a><a class="btn btn-ghost" href="mailto:brightroutemyj@gmail.com?subject=BrightRoute%20Headlight%20Restoration%20Quote">Email Quote Details</a></div><p class="direct-contact">Prefer email? <a href="mailto:brightroutemyj@gmail.com">brightroutemyj@gmail.com</a></p></div>
+        <div><p class="section-kicker">Get a fast quote</p><h2>Send the details needed for an honest estimate.</h2><p>Share your name, phone, city, and a quick message. Pictures are optional, but preferred for the fastest and most accurate quote.</p><div class="contact-actions"><a class="btn btn-primary" href="sms:7089424258">Text Photos / Questions</a><a class="btn btn-secondary" href="tel:7089424258">Call (708) 942-4258</a><a class="btn btn-ghost" href="mailto:brightroutemyj@gmail.com?subject=BrightRoute%20Headlight%20Restoration%20Quote">Email Quote Details</a></div><p class="direct-contact">Prefer email? <a href="mailto:brightroutemyj@gmail.com">brightroutemyj@gmail.com</a></p></div>
         <form class="quote-form" id="quote-form" action="https://brightroute-quote.meldabestxd.workers.dev" method="POST">
           <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
           <label>Name<input name="name" autocomplete="name" required /></label>
           <label>Phone<input name="phone" autocomplete="tel" required /></label>
-          <label>Email<input type="email" name="email" autocomplete="email" placeholder="Optional, but helpful for follow-up" /></label>
-          <label>City<input name="city" autocomplete="address-level2" /></label>
-          <label>Vehicle<input name="vehicle" placeholder="Year / make / model" /></label>
-          <label>Service wanted
-            <select name="service">
-              <option value="">Select one</option>
-              <option>Standard restoration</option>
-              <option>Restoration with UV protection</option>
-              <option>Not sure yet</option>
-            </select>
-          </label>
-          <label>Best time to reach you
-            <input name="availability" placeholder="Example: Weekdays after 5 PM" />
-          </label>
-          <label>Headlight photos
+          <label>Optional email<input type="email" name="email" autocomplete="email" placeholder="Optional, but helpful for follow-up" /></label>
+          <label>City<input name="city" autocomplete="address-level2" required /></label>
+          <label>Pictures (optional but preferred)
             <input type="file" name="photos" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*" multiple />
           </label>
-          <label>Message<textarea name="message" rows="4" placeholder="Tell BrightRoute what the headlights look like, where you're located, and any timing questions."></textarea></label>
+          <label>Message<textarea name="message" rows="4" placeholder="Tell BrightRoute what the headlights look like, where you're located, and any timing questions." required></textarea></label>
           <button class="btn btn-primary" type="submit">Send Quote Request</button>
-          <p class="form-note">Attach up to 3 clear headlight photos here. If upload fails, text the photos to <a href="sms:7089424258">(708) 942-4258</a>.</p>
+          <p class="form-note">Attach up to 3 clear photos if you can. They are optional, but preferred for a faster and more accurate quote. If upload fails, text the photos to <a href="sms:7089424258">(708) 942-4258</a>.</p>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
