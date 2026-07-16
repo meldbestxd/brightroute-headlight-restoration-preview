@@ -12,6 +12,8 @@
 .faq-list details{scroll-margin-top:90px}
 @media(max-width:760px){.trust-grid{grid-template-columns:1fr}.hero-actions .btn{width:100%}.contact-actions .btn{width:100%}}
 
+.quote-form select,.quote-form input[type="file"]{width:100%;margin-top:.45rem;padding:.95rem 1rem;border:1px solid rgba(4,21,43,.12);border-radius:16px;background:#fff;color:var(--ink);font:inherit}.quote-form input[type="file"]{padding:.8rem 1rem;background:#f9fbff}.quote-form select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--navy) 50%),linear-gradient(135deg,var(--navy) 50%,transparent 50%);background-position:calc(100% - 22px) calc(1.15rem),calc(100% - 16px) calc(1.15rem);background-size:6px 6px,6px 6px;background-repeat:no-repeat}.quote-form .botcheck{position:absolute;left:-9999px;opacity:0;pointer-events:none}.form-status{min-height:1.5rem;margin:.35rem 0 0;font-weight:700}.form-status[data-state="loading"]{color:var(--navy)}.form-status[data-state="success"]{color:#0f8a43}.form-status[data-state="error"]{color:#b42318}.quote-form button[disabled]{opacity:.7;cursor:wait}
+
 
 /* Hero proof image */
 .hero-proof-card{

@@ -299,14 +299,31 @@
     <section class="section contact" id="contact">
       <div class="contact-card" id="quote">
         <div><p class="section-kicker">Get a fast quote</p><h2>Send the details needed for an honest estimate.</h2><p>For the fastest estimate, include both headlight photos, vehicle year/make/model, city or cross streets, and whether you want standard restoration or UV protection.</p><div class="contact-actions"><a class="btn btn-primary" href="sms:7089424258">Text Photos / Questions</a><a class="btn btn-secondary" href="tel:7089424258">Call (708) 942-4258</a><a class="btn btn-ghost" href="mailto:brightroutemyj@gmail.com?subject=BrightRoute%20Headlight%20Restoration%20Quote">Email Quote Details</a></div><p class="direct-contact">Prefer email? <a href="mailto:brightroutemyj@gmail.com">brightroutemyj@gmail.com</a></p></div>
-        <form class="quote-form" id="quote-form">
+        <form class="quote-form" id="quote-form" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="access_key" value="8d952162-6471-4282-8daf-a3a085c10ad3" />
+          <input type="hidden" name="subject" value="BrightRoute Headlight Restoration Quote Request" />
+          <input type="hidden" name="from_name" value="BrightRouteAuto.com" />
+          <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
           <label>Name<input name="name" autocomplete="name" required /></label>
           <label>Phone<input name="phone" autocomplete="tel" required /></label>
+          <label>Email<input type="email" name="email" autocomplete="email" placeholder="Optional, but helpful for follow-up" /></label>
           <label>City<input name="city" autocomplete="address-level2" /></label>
-          <label>Vehicle<input name="vehicle" /></label>
-          <label>Message<textarea name="message" rows="4"></textarea></label>
-          <button class="btn btn-primary" type="submit">Prepare Quote Request</button>
-          <p class="form-note">This opens your email app so you can review the message and attach headlight photos before sending.</p>
+          <label>Vehicle<input name="vehicle" placeholder="Year / make / model" /></label>
+          <label>Service wanted
+            <select name="service">
+              <option value="">Select one</option>
+              <option>Standard restoration</option>
+              <option>Restoration with UV protection</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+          <label>Headlight photos
+            <input type="file" name="attachments" accept="image/*" multiple />
+          </label>
+          <label>Message<textarea name="message" rows="4" placeholder="Tell BrightRoute what the headlights look like, where you're located, and any timing questions."></textarea></label>
+          <button class="btn btn-primary" type="submit">Send Quote Request</button>
+          <p class="form-note">Upload clear photos of both headlights for the best estimate. If the upload gives you trouble, text the photos instead.</p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -314,7 +331,7 @@
 
   <div class="sticky-cta" aria-label="Quick contact bar"><a href="sms:7089424258">Text</a><a href="tel:7089424258">Call</a><a href="#quote-flow">Photo Tips</a></div>
   <footer><div class="footer-inner"><img src="assets/brightroute-logo.webp" alt="BrightRoute logo" /><p>© <span id="year"></span> BrightRoute Headlight Restoration. Mobile service in the Chicago Southwest Suburbs & nearby areas.</p><p><a href="tel:7089424258">(708) 942-4258</a> · <a href="mailto:brightroutemyj@gmail.com">brightroutemyj@gmail.com</a></p></div></footer>
-  <script src="script.js?v=1.1"></script>
+  <script src="script.js?v=1.2"></script>
   <script src="analytics.js?v=20260713-qr-tracking" defer></script>
 </body>
 </html>
