@@ -4,99 +4,118 @@ document.querySelectorAll('[data-slider]').forEach((slider) => {
 
   if (!range || !divider) return;
 
-  const update = () => {
-    const value = `${range.value}%`;
-    slider.style.setProperty('--split', value);
-    divider.style.left = value;
+  const setPosition = (value) => {
+    divider.style.left = `${value}%`;
   };
 
-  range.addEventListener('input', update, { passive: true });
-  update();
+  range.addEventListener('input', () => setPosition(range.value));
+  setPosition(range.value || 50);
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+const navLinks = Array.from(document.querySelectorAll('.nav-menu a[href^="#"]'));
+const trackableLinks = navLinks.filter((link) => !link.classList.contains('nav-cta'));
+const sections = trackableLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
 
-const PHOTO_LIMIT_COUNT = 3;
-const PHOTO_LIMIT_BYTES = 12 * 1024 * 1024;
-const ALLOWED_PHOTO_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']);
+if (navToggle && navMenu) {
+  navToggle.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
 
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = typeof reader.result === 'string' ? reader.result : '';
-      const base64 = result.includes(',') ? result.split(',')[1] : result;
-      resolve(base64);
-    };
-    reader.onerror = () => reject(new Error(`Couldn't read ${file.name}.`));
-    reader.readAsDataURL(file);
+  navLinks.forEach((link) =>
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    })
+  );
+}
+
+let clickHoldUntil = 0;
+
+function setActiveLink(activeLink) {
+  trackableLinks.forEach((link) => {
+    link.classList.toggle('is-active', link === activeLink);
   });
 }
 
+trackableLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    clickHoldUntil = Date.now() + 1200;
+    setActiveLink(link);
+  });
+});
+
+function updateActiveNav() {
+  if (!trackableLinks.length || !sections.length) return;
+  if (Date.now() < clickHoldUntil) return;
+
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const visibleHeight = (section) => {
+    const rect = section.getBoundingClientRect();
+    const top = Math.max(rect.top, 0);
+    const bottom = Math.min(rect.bottom, viewportHeight);
+    return Math.max(0, bottom - top);
+  };
+
+  if (window.scrollY + viewportHeight >= document.documentElement.scrollHeight - 12) {
+    const contactLink = trackableLinks.find((link) => link.getAttribute('href') === '#contact');
+    if (contactLink) setActiveLink(contactLink);
+    return;
+  }
+
+  let bestIndex = 0;
+  let bestScore = -1;
+
+  sections.forEach((section, index) => {
+    const score = visibleHeight(section);
+    if (score > bestScore) {
+      bestScore = score;
+      bestIndex = index;
+    }
+  });
+
+  setActiveLink(trackableLinks[bestIndex]);
+}
+
+updateActiveNav();
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('resize', updateActiveNav);
+
 const form = document.getElementById('quote-form');
-if (form) {
-  const status = document.getElementById('form-status');
-  const statusCard = document.getElementById('form-status-card');
-  const statusTitle = document.getElementById('form-status-title');
-  const statusNote = document.getElementById('form-status-note');
+const statusCard = document.getElementById('form-status-card');
+const statusTitle = document.getElementById('form-status-title');
+const statusMessage = document.getElementById('form-status');
+const statusNote = document.getElementById('form-status-note');
+
+if (form && statusCard && statusTitle && statusMessage) {
   const submitButton = form.querySelector('button[type="submit"]');
-  const photosInput = form.querySelector('input[name="photos"]');
 
   const setStatus = (state, message, title, note = '') => {
-    if (!status) return;
-    status.textContent = message;
-    status.dataset.state = state;
-    if (statusCard) {
-      statusCard.hidden = false;
-      statusCard.dataset.state = state;
-    }
-    if (statusTitle && title) statusTitle.textContent = title;
+    statusCard.hidden = false;
+    statusCard.className = `form-status-card ${state}`;
+    statusTitle.textContent = title;
+    statusMessage.textContent = message;
     if (statusNote) statusNote.textContent = note;
   };
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
-    const data = new FormData(form);
-    const selectedFiles = photosInput ? Array.from(photosInput.files || []) : [];
-
-    if (selectedFiles.length > PHOTO_LIMIT_COUNT) {
-      setStatus('error', `Please attach ${PHOTO_LIMIT_COUNT} photos or fewer.`, 'Please check your form');
-      return;
-    }
-
-    const totalBytes = selectedFiles.reduce((sum, file) => sum + (file.size || 0), 0);
-    if (totalBytes > PHOTO_LIMIT_BYTES) {
-      setStatus('error', 'Please keep total photo size under 12 MB, or text the photos instead.', 'Please check your form');
-      return;
-    }
-
-    for (const file of selectedFiles) {
-      if (!ALLOWED_PHOTO_TYPES.has((file.type || '').toLowerCase())) {
-        setStatus('error', 'Please attach JPG, PNG, WebP, HEIC, or HEIF images only.', 'Please check your form');
-        return;
-      }
-    }
-
-    setStatus('loading', 'Sending your quote request now…', 'Submitting your request', 'Please wait a moment.');
     if (submitButton) submitButton.disabled = true;
+    setStatus('loading', 'Sending your quote request now…', 'Just a second');
 
     try {
-      const photos = await Promise.all(selectedFiles.map(async (file) => ({
-        filename: file.name,
-        type: file.type,
-        size: file.size,
-        content: await fileToBase64(file)
-      })));
-
       const payload = {
-        name: (data.get('name') || '').toString().trim(),
-        phone: (data.get('phone') || '').toString().trim(),
-        email: (data.get('email') || '').toString().trim(),
-        city: (data.get('city') || '').toString().trim(),
-        message: (data.get('message') || '').toString().trim(),
-        botcheck: (data.get('botcheck') || '').toString(),
-        photos
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        city: form.city.value.trim(),
+        message: form.message.value.trim(),
+        botcheck: form.botcheck.value,
+        photos: []
       };
 
       const response = await fetch(form.action, {
@@ -112,14 +131,11 @@ if (form) {
 
       if (response.ok && result.ok) {
         form.reset();
-        const confirmationSent = Boolean(result.confirmationSent);
         setStatus(
           'success',
-          confirmationSent
-            ? 'Your request was sent successfully. BrightRoute got it, and a confirmation email was just sent to you too.'
-            : 'Your request was sent successfully. BrightRoute got it and will follow up soon.',
+          'Your request was sent successfully. BrightRoute got it and will follow up soon.',
           'Request sent successfully',
-          'Do not resubmit. If you entered an email, check your inbox or spam for the confirmation email.'
+          'Do not resubmit. BrightRoute already received your request.'
         );
         (statusCard || form).scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;

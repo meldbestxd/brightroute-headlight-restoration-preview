@@ -112,14 +112,11 @@ if (form) {
 
       if (response.ok && result.ok) {
         form.reset();
-        const confirmationSent = Boolean(result.confirmationSent);
         setStatus(
           'success',
-          confirmationSent
-            ? 'Your request was sent successfully. BrightRoute got it, and a confirmation email was just sent to you too.'
-            : 'Your request was sent successfully. BrightRoute got it and will follow up soon.',
+          'Your request was sent successfully. BrightRoute got it and will follow up soon.',
           'Request sent successfully',
-          'Do not resubmit. If you entered an email, check your inbox or spam for the confirmation email.'
+          'Do not resubmit. BrightRoute already received your request.'
         );
         (statusCard || form).scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
