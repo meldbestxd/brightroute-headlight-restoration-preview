@@ -36,8 +36,21 @@ function fileToBase64(file) {
 const form = document.getElementById('quote-form');
 if (form) {
   const status = document.getElementById('form-status');
+  const statusCard = document.getElementById('form-status-card');
+  const statusTitle = document.getElementById('form-status-title');
   const submitButton = form.querySelector('button[type="submit"]');
   const photosInput = form.querySelector('input[name="photos"]');
+
+  const setStatus = (state, message, title) => {
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.state = state;
+    if (statusCard) {
+      statusCard.hidden = false;
+      statusCard.dataset.state = state;
+    }
+    if (statusTitle && title) statusTitle.textContent = title;
+  };
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -46,36 +59,24 @@ if (form) {
     const selectedFiles = photosInput ? Array.from(photosInput.files || []) : [];
 
     if (selectedFiles.length > PHOTO_LIMIT_COUNT) {
-      if (status) {
-        status.textContent = `Please attach ${PHOTO_LIMIT_COUNT} photos or fewer.`;
-        status.dataset.state = 'error';
-      }
+      setStatus('error', `Please attach ${PHOTO_LIMIT_COUNT} photos or fewer.`, 'Please check your form');
       return;
     }
 
     const totalBytes = selectedFiles.reduce((sum, file) => sum + (file.size || 0), 0);
     if (totalBytes > PHOTO_LIMIT_BYTES) {
-      if (status) {
-        status.textContent = 'Please keep total photo size under 12 MB, or text the photos instead.';
-        status.dataset.state = 'error';
-      }
+      setStatus('error', 'Please keep total photo size under 12 MB, or text the photos instead.', 'Please check your form');
       return;
     }
 
     for (const file of selectedFiles) {
       if (!ALLOWED_PHOTO_TYPES.has((file.type || '').toLowerCase())) {
-        if (status) {
-          status.textContent = 'Please attach JPG, PNG, WebP, HEIC, or HEIF images only.';
-          status.dataset.state = 'error';
-        }
+        setStatus('error', 'Please attach JPG, PNG, WebP, HEIC, or HEIF images only.', 'Please check your form');
         return;
       }
     }
 
-    if (status) {
-      status.textContent = 'Sending your quote request…';
-      status.dataset.state = 'loading';
-    }
+    setStatus('loading', 'Sending your quote request now…', 'Submitting your request');
     if (submitButton) submitButton.disabled = true;
 
     try {
@@ -109,19 +110,21 @@ if (form) {
 
       if (response.ok && result.ok) {
         form.reset();
-        if (status) {
-          status.textContent = 'Quote request sent. BrightRoute will review your details and any attached photos, then follow up soon.';
-          status.dataset.state = 'success';
-        }
+        const confirmationSent = Boolean(result.confirmationSent);
+        setStatus(
+          'success',
+          confirmationSent
+            ? 'Your request was sent successfully. BrightRoute got it, and a confirmation email was just sent to you too.'
+            : 'Your request was sent successfully. BrightRoute got it and will follow up soon.',
+          'Request sent successfully'
+        );
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
       throw new Error(result.error || 'The form did not send.');
     } catch (error) {
-      if (status) {
-        status.textContent = `${error.message || 'Something went wrong.'} If needed, text the photos to (708) 942-4258.`;
-        status.dataset.state = 'error';
-      }
+      setStatus('error', `${error.message || 'Something went wrong.'} If needed, text the photos to (708) 942-4258.`, 'We could not send your request');
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
