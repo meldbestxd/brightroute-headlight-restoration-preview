@@ -91,9 +91,6 @@ if (form) {
         phone: (data.get('phone') || '').toString().trim(),
         email: (data.get('email') || '').toString().trim(),
         city: (data.get('city') || '').toString().trim(),
-        vehicle: (data.get('vehicle') || '').toString().trim(),
-        service: (data.get('service') || '').toString().trim(),
-        availability: (data.get('availability') || '').toString().trim(),
         message: (data.get('message') || '').toString().trim(),
         botcheck: (data.get('botcheck') || '').toString(),
         photos
@@ -113,7 +110,7 @@ if (form) {
       if (response.ok && result.ok) {
         form.reset();
         if (status) {
-          status.textContent = 'Quote request sent with your details and photos. BrightRoute will review everything and follow up soon.';
+          status.textContent = 'Quote request sent. BrightRoute will review your details and any attached photos, then follow up soon.';
           status.dataset.state = 'success';
         }
         return;
