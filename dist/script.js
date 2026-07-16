@@ -118,7 +118,7 @@ if (form) {
             : 'Your request was sent successfully. BrightRoute got it and will follow up soon.',
           'Request sent successfully'
         );
-        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        (statusCard || form).scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
