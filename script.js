@@ -38,10 +38,11 @@ if (form) {
   const status = document.getElementById('form-status');
   const statusCard = document.getElementById('form-status-card');
   const statusTitle = document.getElementById('form-status-title');
+  const statusNote = document.getElementById('form-status-note');
   const submitButton = form.querySelector('button[type="submit"]');
   const photosInput = form.querySelector('input[name="photos"]');
 
-  const setStatus = (state, message, title) => {
+  const setStatus = (state, message, title, note = '') => {
     if (!status) return;
     status.textContent = message;
     status.dataset.state = state;
@@ -50,6 +51,7 @@ if (form) {
       statusCard.dataset.state = state;
     }
     if (statusTitle && title) statusTitle.textContent = title;
+    if (statusNote) statusNote.textContent = note;
   };
 
   form.addEventListener('submit', async (event) => {
@@ -76,7 +78,7 @@ if (form) {
       }
     }
 
-    setStatus('loading', 'Sending your quote request now…', 'Submitting your request');
+    setStatus('loading', 'Sending your quote request now…', 'Submitting your request', 'Please wait a moment.');
     if (submitButton) submitButton.disabled = true;
 
     try {
@@ -116,7 +118,8 @@ if (form) {
           confirmationSent
             ? 'Your request was sent successfully. BrightRoute got it, and a confirmation email was just sent to you too.'
             : 'Your request was sent successfully. BrightRoute got it and will follow up soon.',
-          'Request sent successfully'
+          'Request sent successfully',
+          'Do not resubmit. If you entered an email, check your inbox or spam for the confirmation email.'
         );
         (statusCard || form).scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
