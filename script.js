@@ -18,21 +18,56 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 const form = document.getElementById('quote-form');
 if (form) {
-  form.addEventListener('submit', (event) => {
+  const status = document.getElementById('form-status');
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = new FormData(form);
-    const body = [
-      'New BrightRoute quote request',
-      '',
-      `Name: ${data.get('name') || ''}`,
-      `Phone: ${data.get('phone') || ''}`,
-      `City: ${data.get('city') || ''}`,
-      `Vehicle: ${data.get('vehicle') || ''}`,
-      '',
-      `Message: ${data.get('message') || ''}`,
-      '',
-      'Please attach/send headlight photos for the most accurate quote.'
-    ].join('\n');
-    window.location.href = `mailto:brightroutemyj@gmail.com?subject=${encodeURIComponent('BrightRoute Headlight Restoration Quote')}&body=${encodeURIComponent(body)}`;
+    const accessKey = (data.get('access_key') || '').toString().trim();
+
+    if (!accessKey || accessKey === 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY') {
+      if (status) {
+        status.textContent = 'Add your Web3Forms access key first, then this form will send normally.';
+        status.dataset.state = 'error';
+      }
+      return;
+    }
+
+    if (status) {
+      status.textContent = 'Sending your quote request…';
+      status.dataset.state = 'loading';
+    }
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        form.reset();
+        if (status) {
+          status.textContent = 'Quote request sent. BrightRoute can now review your details and attached photos.';
+          status.dataset.state = 'success';
+        }
+        return;
+      }
+
+      throw new Error(result.message || 'The form did not send.');
+    } catch (error) {
+      if (status) {
+        status.textContent = `${error.message || 'Something went wrong.'} If needed, text the photos to (708) 942-4258.`;
+        status.dataset.state = 'error';
+      }
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 }
